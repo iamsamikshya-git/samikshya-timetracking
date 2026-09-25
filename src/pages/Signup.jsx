@@ -105,7 +105,7 @@ export default function Signup() {
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-600">
-        Already have an account? <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-700">Log in</a>
+        Already have an account? <a href="/login" onClick={(event) => { event.preventDefault(); navigateTo('/login'); }} className="font-medium text-indigo-600 hover:text-indigo-700">Log in</a>
       </p>
     </section>
   );
