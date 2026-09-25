@@ -91,7 +91,7 @@ export default function Login() {
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-600">
-        Don’t have an account? <a href="/signup" className="font-medium text-indigo-600 hover:text-indigo-700">Sign up</a>
+        Don’t have an account? <a href="/signup" onClick={(event) => { event.preventDefault(); navigateTo('/signup'); }} className="font-medium text-indigo-600 hover:text-indigo-700">Sign up</a>
       </p>
     </section>
   );
