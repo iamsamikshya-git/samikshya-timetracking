@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import { auth } from '../lib/firebase.js';
-import { getAuthErrorMessage, getPostAuthPath, navigateTo } from '../lib/authHelpers.js';
+import { getAuthErrorMessage, navigateTo } from '../lib/authHelpers.js';
 
 const inputClassName = 'mt-2 block w-full rounded-md border border-slate-300 px-3 py-2.5 text-slate-900 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200';
 
@@ -25,12 +25,13 @@ export default function Signup() {
     let authenticated = false;
 
     try {
-      const credential = await createUserWithEmailAndPassword(auth, email.trim(), password);
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
       authenticated = true;
-      navigateTo(await getPostAuthPath(credential.user.uid));
+      await signOut(auth);
+      navigateTo('/login?signup=success');
     } catch (authError) {
       setError(authenticated
-        ? 'Your account was created, but we could not check your profile. Please try again.'
+        ? 'Your account was created, but we could not sign you out. Please log in.'
         : getAuthErrorMessage(authError));
     } finally {
       setIsSubmitting(false);
